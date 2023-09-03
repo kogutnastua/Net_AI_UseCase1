@@ -3,6 +3,7 @@ using Net_AI_UseCase1.Models;
 using Net_AI_UseCase1.Services.Interfaces;
 using Newtonsoft.Json;
 using System;
+using System.Linq;
 using static System.Net.WebRequestMethods;
 
 namespace Net_AI_UseCase1.Services
@@ -39,6 +40,13 @@ namespace Net_AI_UseCase1.Services
         {
             const int milion = 1000000;
             return countries.Where(x => x.Population < population * milion);
+        }
+
+        private static IEnumerable<Country> SortByCountryName(IEnumerable<Country> countries, string order = "ascend")
+        {
+            return order == "descend" ? 
+                countries.OrderByDescending(x => x.Name.Common) : 
+                countries.OrderBy(x => x.Name.Common);
         }
     }
 }
