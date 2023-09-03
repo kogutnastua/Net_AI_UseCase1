@@ -45,6 +45,6 @@ jobs:
         shell: powershell
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"kogutnastua_Net_AI_UseCase1" /o:"anastasiia-kohut" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
-            dotnet restore
-            dotnet build --configuration Release
+            dotnet restore Net_AI_UseCase1.csproj
+            dotnet build --configuration Release Net_AI_UseCase1.csproj
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
