@@ -29,5 +29,10 @@ namespace Net_AI_UseCase1.Services
                 throw new BadHttpRequestException("Error selecting countries from open API.");
             }
         }
+
+        private IEnumerable<Country> FilterByCountryName(IEnumerable<Country> countries, string countryName)
+        {
+            return countries.Where(x => x.Name.Common.ToLower().Contains(countryName.ToLower()));
+        }
     }
 }
