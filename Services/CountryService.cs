@@ -30,9 +30,15 @@ namespace Net_AI_UseCase1.Services
             }
         }
 
-        private IEnumerable<Country> FilterByCountryName(IEnumerable<Country> countries, string countryName)
+        private static IEnumerable<Country> FilterByCountryName(IEnumerable<Country> countries, string countryName)
         {
             return countries.Where(x => x.Name.Common.ToLower().Contains(countryName.ToLower()));
+        }
+
+        private static IEnumerable<Country> FilterByPopulation(IEnumerable<Country> countries, int population)
+        {
+            const int milion = 1000000;
+            return countries.Where(x => x.Population < population * milion);
         }
     }
 }
