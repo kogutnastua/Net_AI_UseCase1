@@ -9,17 +9,15 @@ namespace Net_AI_UseCase1.Services
 {
     public class CountryService : ICountryService
     {
-        private const string apiUrl = "https://restcountries.com/v3.1/all";
-
         public async Task<IEnumerable<Country>> GetCountries(string p1 = "", int p2 = 0, string p3 = "")
         {
             return await GetAllCountriesFromApi();
         }
 
-        private async Task<IEnumerable<Country>> GetAllCountriesFromApi()
+        private static async Task<IEnumerable<Country>> GetAllCountriesFromApi()
         {
             using var httpClient = new HttpClient();
-            var response = await httpClient.GetAsync(apiUrl);
+            var response = await httpClient.GetAsync("https://restcountries.com/v3.1/all");
 
             if(response.IsSuccessStatusCode)
             {
