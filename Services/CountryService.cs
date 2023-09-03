@@ -1,10 +1,6 @@
-﻿using Microsoft.OpenApi.Services;
-using Net_AI_UseCase1.Models;
+﻿using Net_AI_UseCase1.Models;
 using Net_AI_UseCase1.Services.Interfaces;
 using Newtonsoft.Json;
-using System;
-using System.Linq;
-using static System.Net.WebRequestMethods;
 
 namespace Net_AI_UseCase1.Services
 {
@@ -47,6 +43,11 @@ namespace Net_AI_UseCase1.Services
             return order == "descend" ? 
                 countries.OrderByDescending(x => x.Name.Common) : 
                 countries.OrderBy(x => x.Name.Common);
+        }
+
+        private static IEnumerable<Country> GetFirstNRecords(IEnumerable<Country> countries, int number) 
+        {
+            return countries.Take(number);
         }
     }
 }
