@@ -6,9 +6,15 @@ namespace Net_AI_UseCase1.Services
 {
     public class CountryService : ICountryService
     {
-        public async Task<IEnumerable<Country>> GetCountries(string p1 = "", int p2 = 0, string p3 = "")
+        public async Task<IEnumerable<Country>> GetCountries(string filterCountryName, int filterPopulation, int rowCount, string order)
         {
-            return await GetAllCountriesFromApi();
+            var countries = await GetAllCountriesFromApi();
+            countries = FilterByCountryName(countries, filterCountryName);
+            countries = FilterByPopulation(countries, filterPopulation);
+            countries = SortByCountryName(countries, order);
+            countries = GetFirstNRecords(countries, rowCount);
+
+            return countries;
         }
 
         private static async Task<IEnumerable<Country>> GetAllCountriesFromApi()
@@ -29,13 +35,17 @@ namespace Net_AI_UseCase1.Services
 
         private static IEnumerable<Country> FilterByCountryName(IEnumerable<Country> countries, string countryName)
         {
-            return countries.Where(x => x.Name.Common.ToLower().Contains(countryName.ToLower()));
+            return string.IsNullOrEmpty(countryName) ? 
+                countries :
+                countries.Where(x => x.Name.Common.ToLower().Contains(countryName.ToLower()));
         }
 
         private static IEnumerable<Country> FilterByPopulation(IEnumerable<Country> countries, int population)
         {
             const int milion = 1000000;
-            return countries.Where(x => x.Population < population * milion);
+            return population < 0 ?
+                countries :
+                countries.Where(x => x.Population < population * milion);
         }
 
         private static IEnumerable<Country> SortByCountryName(IEnumerable<Country> countries, string order = "ascend")
@@ -47,7 +57,9 @@ namespace Net_AI_UseCase1.Services
 
         private static IEnumerable<Country> GetFirstNRecords(IEnumerable<Country> countries, int number) 
         {
-            return countries.Take(number);
+            return number < 0 ?
+                countries :
+                countries.Take(number);
         }
     }
 }

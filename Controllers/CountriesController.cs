@@ -16,9 +16,13 @@ namespace Net_AI_UseCase1.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Country>> GetCountries(string p1 = "", int p2 = 0, string p3 = "")
+        public async Task<IEnumerable<Country>> GetCountries(
+            string filterCountryName = "",
+            int filterPopulation = -1,
+            int rowCount = -1,
+            string order = "ascend")
         {
-            return await _countryService.GetCountries(p1, p2, p3);
+            return await _countryService.GetCountries(filterCountryName, filterPopulation, rowCount, order);
         }
     }
 }

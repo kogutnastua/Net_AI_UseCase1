@@ -4,6 +4,6 @@ namespace Net_AI_UseCase1.Services.Interfaces
 {
     public interface ICountryService
     {
-        Task<IEnumerable<Country>> GetCountries(string p1 = "", int p2 = 0, string p3 = "");
+        Task<IEnumerable<Country>> GetCountries(string filterCountryName, int filterPopulation, int rowCount, string order);
     }
 }
