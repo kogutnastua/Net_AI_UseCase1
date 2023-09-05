@@ -1,7 +1,6 @@
 ﻿using Net_AI_UseCase1.Models;
 using Net_AI_UseCase1.Services;
 using NUnit.Framework.Internal;
-using System.Security.Cryptography.X509Certificates;
 
 namespace Net_AI_UseCase1_UnitTests
 {
